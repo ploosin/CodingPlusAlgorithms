@@ -29,20 +29,39 @@ class DoubleLinkedList:
             cur = self.tail
             while cur.data != before_node.data:
                 cur = cur.prev
-                if cur == None:
+                if cur == None: # not exists search node
                     return
+            # insert
             node.next = cur
             prev_node = cur.prev
             node.prev = prev_node
             cur.prev = node
+
+            # head
             if prev_node == None:
                 self.head = node
             else:
                 prev_node.next = node
             
 
-    def insert_after():
-        pass
+    def insert_after(self, node, after_node):
+        if self.head == None:
+            self.head = node
+            return
+        else:
+            cur = self.head
+            while cur.data != after_node.data:
+                cur = cur.next
+                if cur == None: # not exists search node
+                    return
+            # insert
+            node.prev = cur
+            node.next = cur.next
+            if node.next != None:
+                cur.next.prev = node
+                self.tail = node
+            cur.next = node
+                
 
     def delete(self, node):
         find = False
@@ -111,14 +130,17 @@ class DoubleLinkedList:
 dll = DoubleLinkedList(Node(10))
 dll.add(Node(100))
 dll.add(Node(1000))
+print('---------------------')
 dll.print()
 
 dll.delete(Node(100))
-
+print('---------------------')
 dll.print()
 dll.delete(Node(1000))
+print('---------------------')
 dll.print()
 dll.delete(Node(1000))
+print('---------------------')
 dll.print()
 
 dll.search(Node(10))
@@ -126,18 +148,21 @@ dll.search(Node(1000))
 
 dll.add(Node(50))
 dll.add(Node(5000))
+print('---------------------')
 dll.print()
 
 dll.delete(Node(10))
 dll.delete(Node(5000))
+print('---------------------')
 dll.print()
 dll.delete(Node(50))
+print('---------------------')
 dll.print()
-
+print('---------------------')
 dll.add(Node(99))
 dll.add(Node(999))
 dll.print()
-
+print('---------------------')
 dll.print_from_tail()
 print('---------------------')
 dll.insert_before(Node(888), Node(999))
@@ -148,4 +173,10 @@ dll.print()
 
 print('---------------------')
 dll.insert_before(Node(777), Node(888))
+dll.print()
+
+dll.insert_after(Node(444), Node(999))
+dll.insert_after(Node(44), Node(99))
+dll.insert_after(Node(33), Node(88))
+print('---------------------')
 dll.print()
